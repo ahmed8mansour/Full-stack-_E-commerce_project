@@ -1,0 +1,59 @@
+# =========================
+# PYTHON / DJANGO (backend)
+# =========================
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+*.log
+*.sqlite3
+db.sqlite3
+*.pot
+*.mo
+
+# Virtualenv (env folder)
+env/
+venv/
+Env/
+
+# Django specific
+/backend/media/
+/backend/staticfiles/
+/backend/.env
+/backend/.env.*
+
+# Migrations (اختياري تجاهلها)
+# backend/**/migrations/
+# !backend/**/migrations/__init__.py
+
+# ========================
+# REACT / CRA (client_side)
+# ========================
+client_side/node_modules/
+client_side/build/
+client_side/.env.local
+client_side/.env.development
+client_side/.env.production
+client_side/npm-debug.log*
+client_side/yarn-debug.log*
+client_side/yarn-error.log*
+client_side/.cache/
+client_side/coverage/
+
+# ========================
+# COMMON (Editors, OS)
+# ========================
+.vscode/
+.idea/
+.DS_Store
+*.swp
+*.swo
+Thumbs.db
+*.bak
+*.tmp
+
+# ========================
+# GIT / DEPLOYMENT
+# ========================
+*.orig
+# gh-pages/ ← Uncomment if you publish frontend using GitHub Pages
