@@ -57,3 +57,6 @@ Thumbs.db
 # ========================
 *.orig
 # gh-pages/ ← Uncomment if you publish frontend using GitHub Pages
+
+# =============
+/Data

@@ -1,6 +1,9 @@
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth import authenticate
 from rest_framework import serializers
+from .models import CustomUser
+from rest_framework.response import Response
+from rest_framework_simplejwt.tokens import RefreshToken
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -33,3 +36,51 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         else:
             raise serializers.ValidationError("Email and password must be provided")
     
+class CustomUserRegisterSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        exclude = ['groups', 'user_permissions']
+
+    def create(self, validated_data):
+        role = self.context['role']
+        
+        if role == 'user':
+            user = CustomUser.objects.create_user(**validated_data)
+        elif role == 'admin':
+            user = CustomUser.objects.create_superuser(**validated_data)
+        else:
+            raise serializers.ValidationError({'detail': 'role not provided'})
+        refresh = RefreshToken.for_user(user)
+        self.context['refresh'] = refresh
+        return user
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+        data.pop('password', None)
+        data.pop('is_staff', None)
+        data.pop('is_superuser', None)
+
+        refresh = self.context['refresh']
+        print(self.context)
+
+        response_data = {
+            'message' : 'تم التسجيل بنجاح',
+            'user_data':data , 
+            'tokens':{
+                'refresh':str(refresh),
+                'access':str(refresh.access_token),
+            }
+        }
+        
+        return response_data
+
+class CustomUserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        exclude = ['groups', 'user_permissions', 'password', 'is_staff', 'is_superuser']
+
+    
+class CustomUserUpdateProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        exclude = ['groups','username' ,'user_permissions', 'password', 'is_staff', 'is_superuser']
