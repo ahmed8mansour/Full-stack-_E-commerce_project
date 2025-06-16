@@ -6,6 +6,11 @@ import cartImage from "../assests/images/Cart/image 8.svg"
 import trashIcon from "../assests/images/Cart/Frame (1).svg"
 import useWindowDimensions from '../hooks/WindowDimentsions';
 
+import image3 from "../assests/images/landing_page/57234b01d5fcac5632cf6823570ca2d1d53d7d73 (1).png"
+import image4 from "../assests/images/landing_page/6115920b12942762aefb7c7ac954e78b76284504 (1).png"
+import image5 from "../assests/images//landing_page/769b9d60ff941dde9bc0e54431b8d8fe3182f5e9 (1).png"
+
+
 export default function Cart(){
     const [ProductCounter, setProductCounter] = React.useState(1);
     const {width , height} = useWindowDimensions()
@@ -49,7 +54,7 @@ export default function Cart(){
                                 <div className=' col-lg-7'>
                                     <div className='cart_content_left'>
                                         {
-                                            [cartImage,cartImage,cartImage].map((elment , index ,arr) => (
+                                            [cartImage,image3,image4].map((elment , index ,arr) => (
                                                 <div className="card mb-3" key={elment.id}>
                                                     <div className="row g-0"  style={{
                                                         paddingBottom: index !== arr.length-1  ? "30px" : undefined ,

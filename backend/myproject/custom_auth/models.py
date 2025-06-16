@@ -53,27 +53,9 @@ class CustomUser(AbstractUser, PermissionsMixin):
     
 
 
-# class Cart(models.Model):
-#     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='cart')
-#     # products = models.ManyToManyField(Product, through='CartItem')
-#     created_at = models.DateTimeField(auto_now_add=True)
 
-#     Subtotal = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-#     Total = models.DecimalField(max_digits=10, decimal_places=2, default=0.00)
-#     available_discount = models.DecimalField(max_digits=5, decimal_places=2, default=0.00)
 
-#     def __str__(self):
-#         return f"Cart of {self.user.email}"
-    
-# class CartItem(models.Model):
-#     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='items')
-#     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-#     quantity = models.PositiveIntegerField(default=1)
-#     price = models.DecimalField(max_digits=10, decimal_places=2)
 
-#     def __str__(self):
-#         return f"{self.quantity} of {self.product.name} in {self.cart.user.email}'s cart"
-    
 # class Order(models.Model):
 #     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='orders')
 #     cart = models.ForeignKey(Cart, on_delete=models.CASCADE, related_name='orders')

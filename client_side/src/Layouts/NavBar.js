@@ -25,7 +25,7 @@ export default function NavBar(){
 
     return(
         <>
-            <div className='signin_up_offer_area'>
+            {/* <div className='signin_up_offer_area'>
                 <div className='sign_offer_container position-relative container h-100 justify-content-center d-flex align-items-center'>
                     <div className='offer_text'>
 
@@ -38,7 +38,7 @@ export default function NavBar(){
                         <button className='close_btn position-absolute pe-3 pe-sm-0' style={{right:"0"}}><i class="fa-solid fa-x"></i></button>
                     }
                 </div>
-            </div>
+            </div> */}
             <div className="nav_container container">
                 <nav className="navbar navbar-expand-lg">
                     <div className="container-fluid" style={{paddingLeft:"0" , paddingRight:"0"}}>
