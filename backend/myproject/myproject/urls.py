@@ -23,6 +23,7 @@ urlpatterns = [
     path('auth/', include('custom_auth.urls')),
     path('products/', include('Products.urls')),
     path('cart/', include('Cart.urls')),
+    # path('accounts/', include('allauth.urls')),
 ]
 
 

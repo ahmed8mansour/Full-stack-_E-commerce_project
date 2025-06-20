@@ -3,7 +3,11 @@ import { useParams , useLocation, Outlet , Link , NavLink, useNavigate} from "re
 
 import PageLayout from '../Layouts/PageLayout'
 import googleImage from '../assests/images/google.svg'
+import { ToastContainer, toast } from 'react-toastify';
 
+
+import { userLogin , userRegister } from "../featuers/auth/authActions";
+import { useDispatch, useSelector } from 'react-redux'
 export default function Auth(){
 
 // ====================================================
@@ -14,6 +18,11 @@ export default function Auth(){
     const inputRef2 = React.useRef()
     const inputRef3 = React.useRef()
 
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const error_notify = (msg) => toast.error(msg);
+    const success_notify = (msg) => toast.success(msg);
+
 
 // ====================================================
 // ====================================================
@@ -22,8 +31,8 @@ export default function Auth(){
     const [pagetype , Setpgetype] = React.useState(
         (pagetypePara == "signin" ? 1 : 2) // signin = 1 , signup = 2
     )
-    console.log(pagetype)
-    console.log(pagetypePara)
+
+    const state_auth  = useSelector((state) => state.auth)
 
 
 // ====================================================
@@ -43,6 +52,43 @@ export default function Auth(){
 // ====================================================
 // data processing function
 
+async function handlesubmit(e){
+    e.preventDefault();
+    const requestBody = {
+        "email": inputRef2.current?.value,
+        "password": inputRef3.current?.value,
+    }
+
+    if (pagetype == 1){
+        
+        
+        try{
+
+            await dispatch(userLogin(requestBody)).unwrap()
+            navigate("/")
+            success_notify("Login successful. Welcome back!");
+            
+        } catch(error){
+            error_notify(error.error_message?.[0] || "Login failed!");
+            console.log("this error from login catch in auth.js: " , error)
+        }
+        
+        
+    }else if (pagetype ==2){
+        try{
+            requestBody.username = inputRef1.current.value
+            requestBody.role = "user"
+            await dispatch(userRegister(requestBody)).unwrap()
+            navigate("/")
+            success_notify("Registration successful. Welcome!");
+        } catch(error){
+            console.log(error)
+            error_notify(error.error_message?.[0] || "Registration failed!");
+            console.log("this error from register catch in auth.js: " , error)
+        }
+
+    }
+}
     
 
     return(
@@ -67,27 +113,27 @@ export default function Auth(){
                                 </div>
                                 <p className="separator"><span>or</span></p>
 
-                                <form className='auth_input_layout'>
+                                <form className='auth_input_layout' onSubmit={handlesubmit}>
                                     {pagetype == 2 &&
                                     <div class="form-floating  mb-3">
-                                        <input type="text" class="form-control" required ref={inputRef1} autocomplete="on" id="floatingInput1" placeholder="name"/>
-                                        <label for="floatingInput">Full Name</label>
+                                        <input type="text" class="form-control" required ref={inputRef1} autoComplete="on" id="floatingInput1" placeholder="name"/>
+                                        <label htmlFor="floatingInput">Username</label>
                                     </div>
                                     }
                                     <div class="form-floating mb-3">
-                                        <input type="email" class="form-control" required ref={inputRef2} autocomplete="on" id="floatingInput2" placeholder="name@example.com"/>
-                                        <label for="floatingInput">Email address</label>
+                                        <input type="email" class="form-control" required ref={inputRef2} autoComplete="on" id="floatingInput2" placeholder="name@example.com"/>
+                                        <label htmlFor="floatingInput">Email address</label>
                                     </div>
                                     <div class="form-floating mb-3">
-                                        <input type="password" class="form-control" required ref={inputRef3} autocomplete="on" id="floatingPassword3" placeholder="Password"/>
-                                        <label for="floatingPassword">Password</label>
+                                        <input type="password" class="form-control" required ref={inputRef3} autoComplete="on" id="floatingPassword3" placeholder="Password"/>
+                                        <label htmlFor="floatingPassword">Password</label>
                                     </div>
                                     {pagetype == 1 &&
                                     <a className="forgot_password_link mt-3 text-primary" href='/'>
                                         Forgot Password?
                                     </a>
                                     }
-                                    <button className='btn auth_form_btn w-100 mt-3'>{pagetype == 1 ? "Sign in" : "Sign up"}</button>
+                                    <button className='btn auth_form_btn w-100 mt-3' type='submit'>{pagetype == 1 ? "Sign in" : "Sign up"}</button>
                                 </form>
                                 <div className='auth_switch_area mt-4'>
                                     {pagetype == 1  ?  

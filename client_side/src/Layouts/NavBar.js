@@ -2,12 +2,61 @@ import React from 'react'
 
 import useWindowDimensions from '../hooks/WindowDimentsions'
 
+import AccountMenu from '../component/AccountMenu'
+
+import { ToastContainer, toast } from 'react-toastify';
+import {userLogout} from "../featuers/auth/authActions";
+import { useDispatch, useSelector } from 'react-redux'
+import Tooltip from '@mui/material/Tooltip';
+import { useNavigate } from 'react-router-dom';
 
 export default function NavBar(){
-    const {width , height } = useWindowDimensions()
-    const [collapsed , Setcollapsed] = React.useState(
-        document.getElementById('navbarTogglerDemo02')?.classList.contains('show')
-    )
+
+// =================================================================
+// =================================================================
+// =================================================================
+// 1-  hooks calling (important!! : state managment useSelector )
+
+const {width , height } = useWindowDimensions()
+const dispatch = useDispatch()
+
+const navigate = useNavigate()
+
+
+
+
+// =================================================================
+// =================================================================
+// =================================================================
+// 2-  useStates and variable declaration
+
+const [collapsed , Setcollapsed] = React.useState(
+    document.getElementById('navbarTogglerDemo02')?.classList.contains('show')
+)
+
+const state_auth  = useSelector((state) => state.auth)
+
+
+
+// =================================================================
+// =================================================================
+// =================================================================
+// 3-  use effects
+
+
+
+// =================================================================
+// =================================================================
+// =================================================================
+// 4-  conditions (rendering)
+
+
+// =================================================================
+// =================================================================
+// =================================================================
+// 5-  data processing functions
+
+
     function showNav(){
         Setcollapsed(e => !e)
     }
@@ -70,9 +119,18 @@ export default function NavBar(){
                         { width < 992  && 
                                 <div className='nav_btns'>
                                     <i className="fa fa-search" onClick={searchfocus}></i>
-                                    <i className="fa-solid fa-cart-shopping"></i>
-                                    <i className="fa-regular fa-circle-user"></i>
+                                    <Tooltip title ="Cart">
+                                        <i className="fa-solid fa-cart-shopping" onClick={() => navigate("/cart/")}></i>
+                                    </Tooltip>
 
+                                    {( Object.keys(state_auth.user_info).length !== 0) ?
+                                        <AccountMenu /> 
+                                        :
+                                        <Tooltip title="Sign In">
+
+                                            <i className="fa-regular fa-circle-user" onClick={()=> navigate("/auth/signin/")}></i> 
+                                        </Tooltip>
+                                    }
                                 </div>
                         }
         
@@ -116,9 +174,19 @@ export default function NavBar(){
                                     </div>
                                     {
                                         width>992 &&
-                                    <div className='nav_btns'>
-                                        <i className="fa-solid fa-cart-shopping"></i>
-                                        <i className="fa-regular fa-circle-user"></i>
+                                    <div className='nav_btns d-flex align-items-center'>
+                                        <Tooltip title ="Cart">
+                                        <i className="fa-solid fa-cart-shopping" onClick={() => navigate("/cart/")}></i>
+                                    </Tooltip>
+
+                                    {( Object.keys(state_auth.user_info).length !== 0) ?
+                                        <AccountMenu /> 
+                                        :
+                                        <Tooltip title="Sign In">
+
+                                            <i className="fa-regular fa-circle-user" onClick={()=> navigate("/auth/signin/")}></i> 
+                                        </Tooltip>
+                                    }
                                     </div>
                                     }
                                     

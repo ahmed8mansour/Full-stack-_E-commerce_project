@@ -31,13 +31,13 @@ class LogoutView(APIView):
     def post(self, request):
         refresh_token = request.data.get("refresh")
         if not refresh_token:
-            return Response({"error": "Refresh token not provided"}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error_message": "Refresh token not provided"}, status=status.HTTP_400_BAD_REQUEST)
         try:
             token = RefreshToken(refresh_token)
             token.blacklist()
-            return Response({'detail': 'You have logged out successfully'}, status=status.HTTP_200_OK)
+            return Response({'success_message': 'You have logged out successfully'}, status=status.HTTP_200_OK)
         except Exception as e:
-            return Response({"error": str(e)}, status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error_message": str(e)}, status=status.HTTP_400_BAD_REQUEST)
 
 class UserRegisterView(APIView):
     def post(self, request):
@@ -47,7 +47,6 @@ class UserRegisterView(APIView):
             return Response(serializer.data , status=status.HTTP_201_CREATED)
         else:
             error = serializer.errors # {'':'' , json}
-            error.update({"detail" : 'this error from view because the serializer is not valid'})
             return Response(error, status=status.HTTP_400_BAD_REQUEST)
 
 class UserProfileView(generics.UpdateAPIView ,generics.RetrieveAPIView):

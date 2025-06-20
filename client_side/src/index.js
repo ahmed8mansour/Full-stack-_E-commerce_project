@@ -9,10 +9,12 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // Importing Bootstrap JS (optional, if you need features like modals or tooltips)
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
-
+import "./featuers/auth/RefreshToken.js"
 
 import App from "./App.js"
 
+import { Provider } from 'react-redux'
+import store from "./store/index";
 
 import * as bootstrap from 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
@@ -22,5 +24,8 @@ window.bootstrap = bootstrap;
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
 root.render(
-    <App />
+    <Provider store={store}>
+        <App />
+    </Provider>
+    
 );

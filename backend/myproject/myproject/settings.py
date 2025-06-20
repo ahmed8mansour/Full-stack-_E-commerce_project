@@ -37,14 +37,22 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
+
     'corsheaders',
     'custom_auth',
     'Products',
-    'Cart'
+    'Cart',
+    
+    # 'django.contrib.sites',         
+    # 'allauth',
+    # 'allauth.account',
+    # 'allauth.socialaccount',
+    # 'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -56,6 +64,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    # 'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'myproject.urls'
@@ -64,6 +73,34 @@ ROOT_URLCONF = 'myproject.urls'
 # ===================================
 # ===================================
 # ===================================
+
+# SOCIALACCOUNT_PROVIDERS = {
+#     'google': {
+#         'SCOPE': ['email', 'profile'],
+#         'AUTH_PARAMS': {'access_type': 'online'},
+#         'OAUTH_PKCE_ENABLED': True,
+#         'FETCH_USERINFO': True,
+#     }
+# }
+
+# SITE_ID = 2
+
+# LOGIN_REDIRECT_URL = '/'
+# ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+# ACCOUNT_EMAIL_REQUIRED = True
+# ACCOUNT_USERNAME_REQUIRED = False
+# ACCOUNT_AUTHENTICATION_METHOD = 'email'
+# ACCOUNT_EMAIL_VERIFICATION = 'none'
+
+# SOCIALACCOUNT_STORE_TOKENS = True
+
+
+# AUTHENTICATION_BACKENDS = (
+#     'django.contrib.auth.backends.ModelBackend',
+#     'allauth.account.auth_backends.AuthenticationBackend',
+# )
+
 AUTH_USER_MODEL = 'custom_auth.CustomUser'
 
 import os
@@ -83,7 +120,7 @@ REST_FRAMEWORK = {
 from datetime import timedelta
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=15),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
     'ROTATE_REFRESH_TOKENS': False,
     'BLACKLIST_AFTER_ROTATION': True,
@@ -94,6 +131,9 @@ SIMPLE_JWT = {
     'TOKEN_BLACKLIST_ENABLED': True,
 }
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
 
 # ===================================
 # ===================================

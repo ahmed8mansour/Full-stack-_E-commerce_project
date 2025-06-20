@@ -70,7 +70,6 @@ body {
 
 }
 .nav_btns i{
-    padding-top: 15px !important;
     color: var(--black);
     font-size: 24px;
     cursor: pointer;

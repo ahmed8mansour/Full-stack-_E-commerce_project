@@ -18,23 +18,23 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
             # print(user.role)
             # print(request_path)
             if user is None:
-                raise serializers.ValidationError("Invalid email or password")
+                raise serializers.ValidationError({"error_message":"invalid username or password"})
             if request_path == '/auth/user/login/':
                 if user.role == 'user':
                     data = super().validate(attrs)
                     return data
                 else:
-                    raise serializers.ValidationError("only the users can signing here")
+                    raise serializers.ValidationError({"error_message":"only the users can signing here"})
             elif request_path == '/auth/admin/login/':
                 if user.role == 'admin':
                     data = super().validate(attrs)
                     return data
                 else:
-                    raise serializers.ValidationError("only the admins can signing here")
+                    raise serializers.ValidationError({"error_message":"only the admins can signing here"})
             else:
-                raise serializers.ValidationError("Invalid request path")
+                raise serializers.ValidationError({"error_message":"invalid request path"})
         else:
-            raise serializers.ValidationError("Email and password must be provided")
+            raise serializers.ValidationError({"error_message" : "Email and password must be provided"})
     
 class CustomUserRegisterSerializer(serializers.ModelSerializer):
     class Meta:
@@ -49,7 +49,7 @@ class CustomUserRegisterSerializer(serializers.ModelSerializer):
         elif role == 'admin':
             user = CustomUser.objects.create_superuser(**validated_data)
         else:
-            raise serializers.ValidationError({'detail': 'role not provided'})
+            raise serializers.ValidationError({'error_message': 'role not provided'})
         refresh = RefreshToken.for_user(user)
         self.context['refresh'] = refresh
         return user

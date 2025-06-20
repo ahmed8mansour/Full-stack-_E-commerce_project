@@ -21,5 +21,5 @@ urlpatterns = [
     path('user/update/' , UserUpdateProfileView.as_view() , name="user_update_profile"),
     path('admin/update/' , UserUpdateProfileView.as_view() , name="admin_update_profile"),
 
-    # path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
