@@ -7,10 +7,10 @@ from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
-from .serializer import CartSerializer ,CartItemSerializer , CartItemUpdateSerializer
+from .serializer import CartSerializer ,CartItemSerializer , CartItemListSerializer, CartItemUpdateSerializer
 
 from Products.models import Product 
-from Products.serializers import ProductSpecificSerializer
+from Products.serializers import ProductSerializer
 from .models import Cart , CartItem
 # Create your views here.
 
@@ -39,20 +39,22 @@ class CartItemAddView(APIView):
     # body = {
     #     'product':'2',
     #     'quantity':'3',
+    #     'selected_color':"red",
+    #     'selected_size':"Small",
     # }
 
 
     def post(self , request):
 
         data = {}
-        user_id = request.user.id
-        user_cart = CartSerializer(Cart.objects.get(user=user_id)).data['id']
-        data.update({'cart':user_cart})
+        user = request.user
+        cart, created = Cart.objects.get_or_create(user=user)
+        data.update({'cart':cart.id})
         data.update(request.data)
-        print(data['product'])
         print(data)
-        price = float(ProductSpecificSerializer(Product.objects.get(id = data['product'])).data['price'])
+        price = float(ProductSerializer(Product.objects.get(id = data['product'])).data['price_after'])
         total_price = price * int(data['quantity'])
+
         
         data.update({
             'price':f'{price}', 
@@ -84,8 +86,8 @@ class CartItemListView(APIView):
         except Cart.DoesNotExist:
             return Response({"detail": "Cart not found."}, status=status.HTTP_404_NOT_FOUND)
 
-        cart_items_qs = CartItem.objects.filter(cart = cart)
-        cart_items_serializer = CartItemSerializer(cart_items_qs , many = True)
+        cart_items_qs = CartItem.objects.filter(cart = cart).order_by('-id')
+        cart_items_serializer = CartItemListSerializer(cart_items_qs , many = True)
         return Response(cart_items_serializer.data , status= status.HTTP_200_OK)
 
         # return Response({"detail":"dddddd"})
@@ -111,7 +113,6 @@ class CartItemOnChangeView(APIView):
 
     # {
     #     "quantity":"22",
-    #     "operation":"+"
     # }
 
     def put(self , request , item_id):
@@ -121,9 +122,8 @@ class CartItemOnChangeView(APIView):
             return Response({"detail": "Cart item not found."}, status=status.HTTP_404_NOT_FOUND)
         
         request_data = request.data
-        opertion = request_data.pop("operation")  
 
-        serializer = CartItemUpdateSerializer(cart_item , data = request_data , context = {"operation":opertion})
+        serializer = CartItemUpdateSerializer(cart_item , data = request_data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data , status= status.HTTP_200_OK)

@@ -17,17 +17,20 @@ import "./featuers/auth/RefreshToken";
 const router = createBrowserRouter([    
 
     {
+        // تم 
         path: "/",
         element : <Home/>,
         errorElement : "ايرور",
     }
     ,
     {
+        // تم
         path: "/shop/:category",
         element : <ShopCategory/>
     }
     ,
     {
+        // تم ما عدا add to cart  تبع الريفيوز
         path: "/shop/:category/:id",
         element:(
             <ProtectedRoute>
@@ -47,6 +50,7 @@ const router = createBrowserRouter([
     }
     ,
     {
+        // تم لوز اللوز
         path:"/auth/:pagetypePara",
         element:(
             <ReversedProtectedRoute>

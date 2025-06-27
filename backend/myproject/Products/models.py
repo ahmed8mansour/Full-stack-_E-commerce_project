@@ -56,6 +56,12 @@ class ProductReview(models.Model):
     rating = models.DecimalField(max_digits=3, decimal_places=2)
     comment = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    name = models.CharField(max_length=50, blank=True, null=True)
+    
+    def save(self, *args, **kwargs):
+        if not self.name and self.user:
+            self.name = self.user.email
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return f"Review by {self.user.email} for {self.product.id}"

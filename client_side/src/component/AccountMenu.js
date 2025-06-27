@@ -42,7 +42,7 @@ export default function AccountMenu() {
       async function handleLogout(){
         try{
           await dispatch(userLogout()).unwrap();
-          navigate("/")
+          navigate("/auth/signin")
           success_notify("You have logged out succesfully!")
         }catch(error){
           error_notify("There is a problem in logging out")

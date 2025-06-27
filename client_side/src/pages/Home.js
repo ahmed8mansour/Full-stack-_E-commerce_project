@@ -15,32 +15,55 @@ import Footer from '../Layouts/Footer'
 
 import useWindowDimensions from '../hooks/WindowDimentsions'
 
-
+import { useDispatch, useSelector } from 'react-redux'
+import { productHomePageNewArrivalsData , productHomePageTopRatedData , productHomePageReviewsData } from '../featuers/product/productActions'
 
 export default function Home(){
     const {width , height } = useWindowDimensions()
 
-
+    const dispatch = useDispatch()
+    
+    const state_product = useSelector((state) => state.product)
+    const home_reviews = useSelector((state) => state.product.home_reviews)
     // slides here
-    const SLIDE_COUNT = 5
-    const SLIDES = Array.from({ length: SLIDE_COUNT }).map((_, idx) => {
+    const SLIDES = Array.isArray(home_reviews) ? home_reviews.map((review, idx) =>{
+        
         return(
-        <div className='slide_card' key={idx}>
+        <div className='slide_card ' key={idx}>
             <p className="card-text card_stars">
-                <i className="fa-solid fa-star"></i>
-                <i className="fa-solid fa-star"></i>
-                <i className="fa-solid fa-star"></i>
-                <i className="fa-solid fa-star"></i>
-                <i className="fa-solid fa-star-half"></i>
+                {
+                    [...Array(review?.rating).keys()].map((star, index , array) => {
+                    return (
+                        <i class={`fa-solid fa-star`}></i>
+                    )
+                })
+                
+                }
             </p>
-            <h2 className='review_name'>Sarah M. <i class="fa-solid fa-circle-check"></i> </h2>
+            <h2 className='review_name'>{review?.name} <i className="fa-solid fa-circle-check"></i> </h2>
             <div className='review_text'>
-                "I'm blown away by the quality and style of the clothes I received from Shop.co. From casual wear to elegant dresses, every piece I've bought has exceeded my expectations.”
+                " {review?.comment} ”
             </div>
         </div>
-        )
+    )}) : [];
+    
+    React.useEffect(()=>{
+        if (width > 992 && width < 1400){
+            dispatch(productHomePageNewArrivalsData(3))
+            dispatch(productHomePageTopRatedData(3))
+        }else{
+            dispatch(productHomePageNewArrivalsData(4))
+            dispatch(productHomePageTopRatedData(4))
+        }
+        dispatch(productHomePageReviewsData())
+        
+    }, [dispatch])
+
+
+    if (state_product.home_page_data_loading){
+        return "loading...."
     }
-    );
+    
     return(
         <div className='home_page'>
             <div className='home_container'>
@@ -90,26 +113,35 @@ export default function Home(){
                         </div>
                     </div>
                 </div>
-
-                <ProductsLayout 
-                layout_name="NEW ARRIVALS" 
-                page="home"
-                products_details= {"products_details"} // images and rates and all data from state
-                />
-                <br/>
-                <br/>
-                <div className='container'>
-                <hr/>
-                </div>
-                <br/>
-                <br/>
-                <ProductsLayout 
-                layout_name="TOP SELLING" 
-                page="home"
-                products_details= {"products_details"} // images and rates and all data from state
-                />
-                <br/>
                 
+                {
+                    state_product.home_page_data_loading == true ?
+                    "loading.. " :
+                    <>    
+                        <ProductsLayout 
+                        layout_name="NEW ARRIVALS" 
+                        page="home"
+                        products_details= {state_product.home_newArrivals.results} // images and rates and all data from state
+                        next_url={state_product.home_newArrivals.next}
+                        />
+                        <br/>
+                        <br/>
+                        <div className='container'>
+                        <hr/>
+                        </div>
+                        <br/>
+                        <br/>
+                        <ProductsLayout 
+                        layout_name="TOP SELLING" 
+                        page="home"
+                        products_details= {state_product.home_topRated.results}
+                        next_url={state_product.home_topRated.next}
+                        // images and rates and all data from state
+                        />
+                        <br/>
+                    </>
+                    
+                }
 
                 <div className='styles_section my_section'>
                     <div className='container styles_container'>

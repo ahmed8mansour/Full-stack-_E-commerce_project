@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import Cart , CartItem
-
+from Products.serializers import ProductSerializer
 
 class CartSerializer(serializers.ModelSerializer):
     class Meta:
@@ -11,6 +11,21 @@ class CartItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = CartItem
         fields = '__all__'
+
+    
+class CartItemListSerializer(serializers.ModelSerializer):
+    total_price = serializers.IntegerField()
+    product =ProductSerializer(read_only=True)
+    cart = CartSerializer(read_only= True)
+
+    class Meta:
+        model = CartItem
+        fields = ['id', 'product', 'quantity', 'price', 'total_price', 'cart' , 'selected_color' , 'selected_size' ]
+    
+    def get_total_price(self , obj):
+        return int(obj.total_price)
+
+
 
 class CartItemUpdateSerializer(serializers.ModelSerializer):
     class Meta:
@@ -23,22 +38,4 @@ class CartItemUpdateSerializer(serializers.ModelSerializer):
             'cart': {'required': False},
             'product': {'required': False}
         }
-
-    def update(self, instance, validated_data):
-        operation = self.context.get("operation")
-        quantity = validated_data['quantity'] # the data from the request
-
-        latest_instance = CartItem.objects.get(id=instance.id)
-        if operation == '+':
-            latest_instance.quantity += quantity
-        elif operation == '-':
-            latest_instance.quantity -= quantity
-        else:
-            raise serializers.ValidationError("Invalid operation. Use '+' or '-'.")
-        
-        if latest_instance.quantity < 1:
-            raise serializers.ValidationError("Quantity cannot be less than 1.")
-
-        latest_instance.save()
-        return latest_instance
     

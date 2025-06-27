@@ -133,7 +133,18 @@ async function handlesubmit(e){
                                         Forgot Password?
                                     </a>
                                     }
-                                    <button className='btn auth_form_btn w-100 mt-3' type='submit'>{pagetype == 1 ? "Sign in" : "Sign up"}</button>
+                                    <button className='btn auth_form_btn w-100 mt-3' disabled={(state_auth.login_user_loading || state_auth.register_user_loading) && "true"} type='submit'>
+                                        {(state_auth.login_user_loading || state_auth.register_user_loading)
+                                            ? (
+                                                <div className="spinner-border text-light" role="status">
+                                                    <span className="visually-hidden">Loading...</span>
+                                                </div>
+                                            )
+                                            : (
+                                                pagetype === 1 ? "Sign in" : "Sign up"
+                                            )
+                                        }
+                                        </button>
                                 </form>
                                 <div className='auth_switch_area mt-4'>
                                     {pagetype == 1  ?  
