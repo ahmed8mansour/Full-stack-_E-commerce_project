@@ -25,7 +25,7 @@ export default function ProductsLayout(props){
     } else if (Array.isArray(props.products_details)) {
         product_cards = props.products_details.map((element, index, array) => {
             return (
-                <div class="col" key={element.id}>
+                <div class="col" key={element.id} >
                     <Link  reloadDocument to={`/shop/${element.style}/${element.id}`} className='product_card_link'>
                     <div class="card">
                         <img src={`${backendURL}${element.image1}`} class="card-img-top" alt="..."/>
@@ -74,22 +74,28 @@ async function Load_more(layout , next_url) {
     return(
         
 
-        <div className='products_layout'>
+        <div className='products_layout' id={props.idx}>
             <div className='products_container container'>
                 { (props.page === "home" || props.page === "specific_product")  &&
                 <h1 className='products_layout_title'>{props.layout_name}</h1>
                 }
                 
-                
-                <div className='products_layout_cards'>
-                    <div className={ props.page === "home" || props.page === "specific_product" ? "row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 g-4" : "row row-cols-1 row-cols-sm-2 row-cols-lg-2 row-cols-xl-3 gx-4 gy-5"}>
-
-                        {product_cards}
-
-
-
-                    </div>
+                { state_product.home_page_data_error ? 
+                <div className='pt-5 text-center fw-bold ' style={{color:"red"}}>
+                there is an error in the backend server    
                 </div>
+                : 
+                
+                    <div className='products_layout_cards'>
+                        <div className={ props.page === "home" || props.page === "specific_product" ? "row row-cols-1 row-cols-sm-2 row-cols-lg-3 row-cols-xxl-4 g-4" : "row row-cols-1 row-cols-sm-2 row-cols-lg-2 row-cols-xl-3 gx-4 gy-5"}>
+
+                            {product_cards}
+
+
+
+                        </div>
+                    </div>
+                }
                 
                 
                 {

@@ -68,7 +68,6 @@ export default function App(){
     const state_auth = useSelector((state) => state.auth)
     const token = localStorage.getItem("userToken")
     React.useEffect(() => {
-        console.log("app use effect is working")
         if (token && (!state_auth.user_info || Object.keys(state_auth.user_info).length === 0)){
             dispatch(userProfile());
         }

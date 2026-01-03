@@ -58,23 +58,26 @@ async function handlesubmit(e){
         "email": inputRef2.current?.value,
         "password": inputRef3.current?.value,
     }
-
     if (pagetype == 1){
         
         
         try{
+            console.log("the page type is " , pagetype)
 
             await dispatch(userLogin(requestBody)).unwrap()
             navigate("/")
             success_notify("Login successful. Welcome back!");
             
         } catch(error){
+            console.log(error)
             error_notify(error.error_message?.[0] || "Login failed!");
             console.log("this error from login catch in auth.js: " , error)
         }
         
         
     }else if (pagetype ==2){
+        console.log("the page type is " , pagetype)
+
         try{
             requestBody.username = inputRef1.current.value
             requestBody.role = "user"

@@ -7,19 +7,19 @@ const backendURL = "http://localhost:8000"
 export const userLogin = createAsyncThunk(
     'auth/login',
     async (requestbody , thunkAPI) =>{
-
+        console.log(requestbody)
         try {
             const config = {
                 headers: {
                     'Content-Type': 'application/json',
                 },
             }
-
             const { data } = await axios.post(
                 `${backendURL}/auth/user/login/`,
                 requestbody,
                 config
             )
+            console.log(data)
             return {
                 userToken: data.access,
                 userTokenRefresh: data.refresh
@@ -30,6 +30,7 @@ export const userLogin = createAsyncThunk(
             return thunkAPI.rejectWithValue(error.response.data);
         } else {
             console.log(error.message);
+            console.log(error);
             return thunkAPI.rejectWithValue(error.message);
         }
     }

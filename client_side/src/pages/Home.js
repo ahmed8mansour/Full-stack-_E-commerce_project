@@ -75,7 +75,11 @@ export default function Home(){
                                 <div className='landing_left col-12 col-md-7 col-lg-6 col-xl-6 '>
                                     <h1 className='landing_title'>FIND CLOTHES THAT MATCHES YOUR STYLE</h1>
                                     <p className='landing_pretext'>Browse through our diverse range of meticulously crafted garments, designed to bring out your individuality and cater to your sense of style.</p>
-                                    <button className='btn landing_btn' >Shop Now</button>
+                                    <button className='btn landing_btn' >
+                                        <a href='/shop/formal/' style={{textDecoration:"none" , color:"white"}}>
+                                        Shop Now
+                                        </a>
+                                    </button>
                                     <div className='landing_cards d-flex align-items-center justify-content-between'>
                                         <div className='landing_card'>
                                             <h2>200+</h2>
@@ -121,6 +125,7 @@ export default function Home(){
                         <ProductsLayout 
                         layout_name="NEW ARRIVALS" 
                         page="home"
+                        idx="new_arrivals"
                         products_details= {state_product.home_newArrivals.results} // images and rates and all data from state
                         next_url={state_product.home_newArrivals.next}
                         />
@@ -134,6 +139,7 @@ export default function Home(){
                         <ProductsLayout 
                         layout_name="TOP SELLING" 
                         page="home"
+                        idx="top_selling"
                         products_details= {state_product.home_topRated.results}
                         next_url={state_product.home_topRated.next}
                         // images and rates and all data from state
@@ -143,7 +149,7 @@ export default function Home(){
                     
                 }
 
-                <div className='styles_section my_section'>
+                <div className='styles_section my_section' id="category">
                     <div className='container styles_container'>
                         <h1 className='style_title'>BROWSE BY dress STYLE</h1>
                         <div className='style_cards row justify-content-between align-items-center g-3'>

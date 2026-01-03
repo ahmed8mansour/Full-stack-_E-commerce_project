@@ -10,11 +10,10 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         email = attrs.get('email')
         password = attrs.get('password')
-
+        print("this is working")
         if email and password:
             user = authenticate(email=email, password=password)
             request_path = self.context.get("request").path
-            print(user)
             # print(user.role)
             # print(request_path)
             if user is None:

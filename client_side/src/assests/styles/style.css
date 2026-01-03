@@ -254,12 +254,17 @@ nav  .nav-link{
     height: 52px;
     border-radius: 62px;
     background-color: var(--black);
-    color: white;
+    color: white !important;
     transition: all .3s ease-in;
     margin-top: 20px;
 }
 .landing_page .landing_btn:hover{
     border: 1px solid var(--black);
+    color: #000000 !important;
+}
+.landing_page .landing_btn:hover a{
+    color: #000000 !important;
+
 }
 .landing_page .landing_cards{
     margin-top: 70px ;

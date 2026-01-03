@@ -142,20 +142,20 @@ const state_auth  = useSelector((state) => state.auth)
                                             Shop
                                         </a>
                                         <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item" href="#">Gym</a></li>
-                                            <li><a class="dropdown-item" href="#">Party</a></li>
-                                            <li><a class="dropdown-item" href="#">Formal</a></li>
-                                            <li><a class="dropdown-item" href="#">Casual</a></li>
+                                            <li><a class="dropdown-item" href="/shop/gym">Gym</a></li>
+                                            <li><a class="dropdown-item" href="/shop/party">Party</a></li>
+                                            <li><a class="dropdown-item" href="/shop/formal">Formal</a></li>
+                                            <li><a class="dropdown-item" href="/shop/casual">Casual</a></li>
                                         </ul>
                                         </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="#">On Sale</a>
+                                        <a className="nav-link" href="#new_arrivals">New Arrivals</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="#">New Arrivals</a>
+                                        <a className="nav-link" href="#top_selling">Top Selling</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="#">Brands</a>
+                                        <a className="nav-link" href="#category">Brands</a>
                                     </li>
 
                                 </ul>
