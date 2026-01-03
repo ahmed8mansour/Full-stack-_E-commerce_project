@@ -1,4 +1,5 @@
 import React from "react";
+import { backendURL } from '../../store/Constants'
 // دالة للكشف عن نوع التوكن الموجود مع تفاصيل أكثر
 const detectUserType = () => {
     const tokenTypes = ['user', 'admin'];
@@ -28,7 +29,7 @@ export const refreshTokens = async () => {
   if (!type || !refresh) return false;
 
   try {
-    const res = await fetch('http://127.0.0.1:8000/auth/token/refresh/', {
+    const res = await fetch(`${backendURL}auth/token/refresh/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ refresh }),

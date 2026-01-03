@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 
-const backendURL = "http://localhost:8000"
+import { backendURL } from '../../store/Constants'
 
 
 // get_or_create_cart
@@ -26,7 +26,7 @@ export const cartItemRegister = createAsyncThunk(
                 },
             }
             const {data} = await axios.post(
-                `${backendURL}/cart/cartItem/add/`,
+                `${backendURL}cart/cartItem/add/`,
                 requestbody,
                 config
             )
@@ -57,7 +57,7 @@ export const cartItemsListView = createAsyncThunk(
                 },
             }
             const {data} = await axios.get(
-                `${backendURL}/cart/cartItem/listview/`,
+                `${backendURL}cart/cartItem/listview/`,
                 config
             )
             return data
@@ -88,7 +88,7 @@ export const cartItemDelete = createAsyncThunk(
 
         try{
             const {data}= await axios.delete(
-                `${backendURL}/cart/cartItem/delete/${cartItem_id}/`,
+                `${backendURL}cart/cartItem/delete/${cartItem_id}/`,
                 config
             )
             return data
@@ -120,7 +120,7 @@ export const cartItemUpdate = createAsyncThunk(
         console.log(requestbody2)
         try{
             const {data}= await axios.put(
-                `${backendURL}/cart/cartItem/update/${requestbody.id}/`,
+                `${backendURL}cart/cartItem/update/${requestbody.id}/`,
                 requestbody2,
                 config
             )

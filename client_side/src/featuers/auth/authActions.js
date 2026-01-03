@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
-
-const backendURL = "http://localhost:8000"
+import { backendURL } from '../../store/Constants'
 
 
 export const userLogin = createAsyncThunk(
@@ -15,7 +14,7 @@ export const userLogin = createAsyncThunk(
                 },
             }
             const { data } = await axios.post(
-                `${backendURL}/auth/user/login/`,
+                `${backendURL}auth/user/login/`,
                 requestbody,
                 config
             )
@@ -47,7 +46,7 @@ export const userRegister = createAsyncThunk(
                 },
             }
             const { data } = await axios.post(
-                `${backendURL}/auth/user/register/`,
+                `${backendURL}auth/user/register/`,
                 requestbody,
                 config
             )
@@ -74,7 +73,7 @@ export const userLogout = createAsyncThunk(
             
             if (!refreshToken) throw new Error("No refresh token found");
                 await axios.post(
-                `${backendURL}/auth/user/logout/`,
+                `${backendURL}auth/user/logout/`,
                 { refresh: refreshToken },
                 {
                     headers: {
@@ -103,7 +102,7 @@ export const userProfile = createAsyncThunk(
                 },
             };
             const {data} =  await axios.get(
-                `${backendURL}/auth/user/profile`,
+                `${backendURL}auth/user/profile`,
                 config
             )
             return data;
