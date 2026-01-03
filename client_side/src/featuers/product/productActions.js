@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
-
+import { backendURL } from '../../store/Constants'
 const backendURL = "http://localhost:8000"
 
 export const productHomePageReviewsData = createAsyncThunk(
@@ -13,7 +13,7 @@ export const productHomePageReviewsData = createAsyncThunk(
                 },
             }
             const {data} = await axios.get(
-                `${backendURL}/products/homePage/ReviewsData/`,
+                `${backendURL}products/homePage/ReviewsData/`,
             )
             return data
 
@@ -38,7 +38,7 @@ export const productHomePageNewArrivalsData = createAsyncThunk(
                 },
             }
             const {data} = await axios.get(
-                `${backendURL}/products/homePage/NewArrivalsData/${limit}/`,
+                `${backendURL}products/homePage/NewArrivalsData/${limit}/`,
             )
             return data
 
@@ -63,7 +63,7 @@ export const productHomePageTopRatedData = createAsyncThunk(
                 },
             }
             const {data} = await axios.get(
-                `${backendURL}/products/homePage/TopRatedData/${limit}/`,
+                `${backendURL}products/homePage/TopRatedData/${limit}/`,
             )
             return data
 
@@ -132,7 +132,7 @@ export const productSpecificData = createAsyncThunk(
                 },
             }
             const {data} = await axios.get(
-                `${backendURL}/products/${requestData.style}/${requestData.id}/`,
+                `${backendURL}products/${requestData.style}/${requestData.id}/`,
             )
             return data
 
@@ -160,7 +160,7 @@ export const productReviewRegister = createAsyncThunk(
                 },
             }
             const {data} = await axios.post(
-                `${backendURL}/products/review/register/`,
+                `${backendURL}products/review/register/`,
                 requestData,
                 config
             )
@@ -210,7 +210,7 @@ export const productFilterPageDefault = createAsyncThunk(
             }
         try{
             const {data} = await axios.get(
-                `${backendURL}/products/DefaultStylePage/${pageType}/${limit}/`,config
+                `${backendURL}products/DefaultStylePage/${pageType}/${limit}/`,config
             )
             return data
         }catch (error) {
@@ -237,7 +237,7 @@ export const productFilterApplying = createAsyncThunk(
         
         try{
             const {data} = await axios.post(
-                `${backendURL}/products/DefaultStylePage/${pageType}/filter/${limit}/`,
+                `${backendURL}products/DefaultStylePage/${pageType}/filter/${limit}/`,
                 requestData2,
                 config
             )
