@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
 import { backendURL } from '../../store/Constants'
-const backendURL = "http://localhost:8000"
 
 export const productHomePageReviewsData = createAsyncThunk(
     'product/HomePage/reviews',
