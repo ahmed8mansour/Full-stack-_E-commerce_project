@@ -22,11 +22,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 import os
 
-SECRET_KEY = "django-insecure-du^fys53fwty0sw^s894$ya+zj_6_$f*tf6!6@^wr=m0mfb!-1"
+SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
+
+# SECRET_KEY = "django-insecure-du^fys53fwty0sw^s894$ya+zj_6_$f*tf6!6@^wr=m0mfb!-1"
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 
@@ -106,7 +108,6 @@ ROOT_URLCONF = 'myproject.urls'
 
 AUTH_USER_MODEL = 'custom_auth.CustomUser'
 
-import os
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
