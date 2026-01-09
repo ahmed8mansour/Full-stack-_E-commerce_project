@@ -28,7 +28,7 @@ export default function ProductsLayout(props){
                 <div class="col" key={element.id} >
                     <Link  reloadDocument to={`/shop/${element.style}/${element.id}`} className='product_card_link'>
                     <div class="card">
-                        <img src={`${backendURL}${element.image1}`} class="card-img-top" alt="..."/>
+                        <img src={`${element.image1}`} class="card-img-top" alt="..."/>
                         <div class="card-body">
                             <h5 class="card-title">{element.name}</h5>
                             <p class="card-text card_stars ">

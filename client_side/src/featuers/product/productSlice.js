@@ -219,7 +219,7 @@ const productSlice = createSlice({
             for (let i = 1; i <= 3; i++) {
                 const key = `image${i}`;
                 if (state.specific_product.product_data[key]) {
-                    state.specific_product.product_data[key] = `${backendURL}${state.specific_product.product_data[key]}`;
+                    state.specific_product.product_data[key] = `${state.specific_product.product_data[key]}`;
                 }
             }
             const categories = {

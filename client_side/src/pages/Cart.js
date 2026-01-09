@@ -131,7 +131,7 @@ console.log("quantity:" , quantity)
                                                                 borderRadius:"8px"
                                                             }}
                                                             ></div> */}
-                                                            <img src={`${backendURL}${elment?.product?.image1}`} className=" w-100 h-100 object-fit-cover rounded-start" alt="..."/>
+                                                            <img src={`${elment?.product?.image1}`} className=" w-100 h-100 object-fit-cover rounded-start" alt="..."/>
                                                         </div>
                                                         <div className="col-sm-9 col-8 d-flex flex-column">
                                                             <div className="card-body">

@@ -23,9 +23,9 @@ class Product(models.Model):
     rate = models.DecimalField(max_digits=3, decimal_places=2, default=0.00)
     adding_date = models.DateTimeField(auto_now_add=True)
 
-    image1 = models.ImageField(upload_to='products/', blank=True, null=True)
-    image2 = models.ImageField(upload_to='products/', blank=True, null=True)    
-    image3 = models.ImageField(upload_to='products/', blank=True, null=True)
+    image1 = models.ImageField(upload_to='products', blank=True, null=True)
+    image2 = models.ImageField(upload_to='products', blank=True, null=True)    
+    image3 = models.ImageField(upload_to='products', blank=True, null=True)
 
     def save(self, *args, **kwargs):
 
