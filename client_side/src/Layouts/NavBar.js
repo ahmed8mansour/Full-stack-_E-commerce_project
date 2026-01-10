@@ -149,13 +149,13 @@ const state_auth  = useSelector((state) => state.auth)
                                         </ul>
                                         </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="#new_arrivals">New Arrivals</a>
+                                        <a className="nav-link" href="/#new_arrivals">New Arrivals</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="#top_selling">Top Selling</a>
+                                        <a className="nav-link" href="/#top_selling">Top Selling</a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="#category">Brands</a>
+                                        <a className="nav-link" href="/#category">Brands</a>
                                     </li>
 
                                 </ul>

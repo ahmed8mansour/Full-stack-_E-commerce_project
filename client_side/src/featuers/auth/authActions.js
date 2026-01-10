@@ -102,7 +102,7 @@ export const userProfile = createAsyncThunk(
                 },
             };
             const {data} =  await axios.get(
-                `${backendURL}auth/user/profile`,
+                `${backendURL}auth/user/profile/`,
                 config
             )
             return data;
