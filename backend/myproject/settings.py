@@ -145,8 +145,10 @@ SIMPLE_JWT = {
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "https://full-stack-e-commerce-project-zeta.vercel.app",
+    "https://full-stack-e-commerce-project-61ay4apq5.vercel.app",
 ]
 CSRF_TRUSTED_ORIGINS = [
+    "https://full-stack-e-commerce-project-61ay4apq5.vercel.app",
     "https://full-stack-e-commerce-project-zeta.vercel.app",
 ]
 CORS_ALLOW_CREDENTIALS = True
